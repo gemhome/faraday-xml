@@ -115,6 +115,7 @@ RSpec.describe Faraday::XML::Response, type: :response do
     end
 
     it 'passes relevant options to XML parse' do
+      allow(middleware).to receive(:test_parser)
       expect(::Hash).to receive(:from_xml)
         .with(body, options.dig(:parser_options, :disallowed_types))
         .and_return(result)

@@ -31,7 +31,20 @@ module Faraday
         parser.call(body, @parser_options || {})
       end
 
+      def test_parser
+        parse("<success>true</success>")
+      end
+
       def parser # rubocop:disable Metrics/MethodLength
+        @parser ||= nil
+        if @parser.nil?
+          @parser = set_parser
+          @parser && test_parser
+        end
+        @parser or raise 'Missing dependencies ActiveSupport::XmlMini or MultiXml'
+      end
+
+      def set_parser
         @parser ||=
           begin
             require 'multi_xml'
@@ -52,7 +65,6 @@ module Faraday
             end
           rescue LoadError # rubocop:disable Lint/SuppressedException
           end
-        @parser or raise 'Missing dependencies ActiveSupport::XmlMini or MultiXml'
       end
 
       def parse_response?(env)
