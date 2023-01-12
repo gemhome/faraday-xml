@@ -55,7 +55,8 @@ module Faraday
           end
         @parser ||=
           begin
-            require 'active_support/isolated_execution_state'
+            require 'active_support'
+            # require 'active_support/isolated_execution_state'
             require 'active_support/xml_mini'
             require 'active_support/core_ext/hash/conversions'
             require 'active_support/core_ext/array/conversions'
