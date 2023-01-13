@@ -4,12 +4,13 @@ module Faraday
   module XML
     # Parse response bodies as XML
     class Response < Faraday::Middleware
-      def initialize(app = nil, parser_options: nil, content_type: /\bxml$/, preserve_raw: false)
+      def initialize(app = nil, options = {})
         super(app)
-        @parser_options = parser_options
-        @content_types = Array(content_type)
-        @preserve_raw = preserve_raw
+        @parser_options = options[:parser_options]
+        @content_types = Array(options.fetch(:content_type, /\bxml$/))
+        @preserve_raw = options.fetch(:preserve_raw, false)
       end
+      ruby2_keywords :initialize if respond_to?(:ruby2_keywords, true)
 
       # @param env [Faraday::Env] the environment of the response being processed.
       def on_complete(env)
