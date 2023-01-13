@@ -11,4 +11,4 @@ gemspec
 install_if -> { ENV.fetch('FARADAY_VERSION', nil) } do
   gem 'faraday', ENV.fetch('FARADAY_VERSION', nil)
 end
-gem "activesupport"
+gem 'activesupport'

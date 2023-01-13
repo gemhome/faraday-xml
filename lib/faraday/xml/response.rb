@@ -33,10 +33,10 @@ module Faraday
       end
 
       def test_parser
-        parse("<success>true</success>")
+        parse('<success>true</success>')
       end
 
-      def parser # rubocop:disable Metrics/MethodLength
+      def parser
         @parser ||= nil
         if @parser.nil?
           @parser = set_parser
@@ -45,7 +45,7 @@ module Faraday
         @parser or raise 'Missing dependencies ActiveSupport::XmlMini or MultiXml'
       end
 
-      def set_parser
+      def set_parser # rubocop:disable Metrics/MethodLength
         @parser ||=
           begin
             require 'multi_xml'
@@ -54,10 +54,9 @@ module Faraday
             end
           rescue LoadError # rubocop:disable Lint/SuppressedException
           end
-        @parser ||=
+        @parser ||= # rubocop:disable Naming/MemoizedInstanceVariableName
           begin
             require 'active_support'
-            # require 'active_support/isolated_execution_state'
             require 'active_support/xml_mini'
             require 'active_support/core_ext/hash/conversions'
             require 'active_support/core_ext/array/conversions'

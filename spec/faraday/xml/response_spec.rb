@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Faraday::XML::Response, type: :response do
+RSpec.describe Faraday::XML::Response, type: :response do # rubocop:disable RSpec/MultipleMemoizedHelpers
   let(:options) { {} }
   let(:headers) { {} }
   let(:middleware) do
@@ -29,7 +29,7 @@ RSpec.describe Faraday::XML::Response, type: :response do
     middleware.call(Faraday::Env.from(env))
   end
 
-  context 'no type matching' do
+  context 'no type matching' do # rubocop:disable RSpec/ContextWording, RSpec/MultipleMemoizedHelpers
     it "doesn't change nil body" do
       expect(process(nil).body).to be_nil
     end
@@ -38,24 +38,24 @@ RSpec.describe Faraday::XML::Response, type: :response do
       expect(process('').body).to be_nil
     end
 
-    it 'parses xml body' do
+    it 'parses xml body' do # rubocop:disable RSpec/MultipleExpectations
       response = process(xml)
       expect(response.body).to eq(parsed_xml)
       expect(response.env[:raw_body]).to be_nil
     end
   end
 
-  context 'with preserving raw' do
+  context 'with preserving raw' do # rubocop:disable RSpec/MultipleMemoizedHelpers
     let(:options) { { preserve_raw: true } }
 
-    it 'parses xml body' do
+    it 'parses xml body' do # rubocop:disable RSpec/MultipleExpectations
       response = process(xml)
       expect(response.body).to eq(parsed_xml)
       expect(response.env[:raw_body]).to eq(xml)
     end
   end
 
-  context 'with default regexp type matching' do
+  context 'with default regexp type matching' do # rubocop:disable RSpec/MultipleMemoizedHelpers
     it 'parses xml body of correct type' do
       response = process(xml, 'text/xml; encoding="UTF-8";charset=UTF-8')
       expect(response.body).to eq(parsed_xml)
@@ -67,10 +67,10 @@ RSpec.describe Faraday::XML::Response, type: :response do
     end
   end
 
-  context 'with array type matching' do
+  context 'with array type matching' do # rubocop:disable RSpec/MultipleMemoizedHelpers
     let(:options) { { content_type: %w[a/b c/d] } }
 
-    it 'parses xml body of correct type' do
+    it 'parses xml body of correct type' do # rubocop:disable RSpec/MultipleExpectations
       expect(process(xml, 'a/b').body).to be_a(Hash)
       expect(process(xml, 'c/d').body).to be_a(Hash)
     end
@@ -91,32 +91,32 @@ RSpec.describe Faraday::XML::Response, type: :response do
     expect(e.response).to be_a(Faraday::Response)
   end
 
-  context 'HEAD responses' do
-    it "nullifies the body if it's only one space" do
+  context 'HEAD responses' do # rubocop:disable RSpec/ContextWording, RSpec/MultipleMemoizedHelpers
+    it "nullifies the body if it's only one space" do # rubocop:disable RSpec/RepeatedExample
       response = process(' ')
       expect(response.body).to be_nil
     end
 
-    it "nullifies the body if it's two spaces" do
+    it "nullifies the body if it's two spaces" do # rubocop:disable RSpec/RepeatedExample
       response = process(' ')
       expect(response.body).to be_nil
     end
   end
 
-  context 'XML options' do
+  context 'with XML options' do # rubocop:disable RSpec/MultipleMemoizedHelpers
     let(:body) { xml }
     let(:result) { parsed_xml }
     let(:options) do
       {
         parser_options: {
-          disallowed_types: "yaml"
+          disallowed_types: 'yaml'
         }
       }
     end
 
-    it 'passes relevant options to XML parse' do
+    it 'passes relevant options to XML parse' do # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       allow(middleware).to receive(:test_parser)
-      expect(::Hash).to receive(:from_xml)
+      expect(::Hash).to receive(:from_xml) # rubocop:disable RSpec/MessageSpies, RSpec/StubbedMock
         .with(body, options.dig(:parser_options, :disallowed_types))
         .and_return(result)
 
