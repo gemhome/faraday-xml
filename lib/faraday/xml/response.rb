@@ -17,6 +17,15 @@ module Faraday
         process_response(env) if parse_response?(env)
       end
 
+      def parser
+        @parser ||= nil
+        if @parser.nil?
+          @parser = set_parser
+          @parser && test_parser
+        end
+        @parser or raise 'Missing dependencies ActiveSupport::XmlMini or MultiXml'
+      end
+
       private
 
       def process_response(env)
@@ -34,15 +43,6 @@ module Faraday
 
       def test_parser
         parse('<success>true</success>')
-      end
-
-      def parser
-        @parser ||= nil
-        if @parser.nil?
-          @parser = set_parser
-          @parser && test_parser
-        end
-        @parser or raise 'Missing dependencies ActiveSupport::XmlMini or MultiXml'
       end
 
       def set_parser # rubocop:disable Metrics/MethodLength

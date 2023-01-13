@@ -116,8 +116,8 @@ RSpec.describe Faraday::XML::Response, type: :response do # rubocop:disable RSpe
 
     it 'passes relevant options to XML parse' do # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       allow(middleware).to receive(:test_parser)
-      expect(::Hash).to receive(:from_xml) # rubocop:disable RSpec/MessageSpies, RSpec/StubbedMock
-        .with(body, options.dig(:parser_options, :disallowed_types))
+      expect(middleware.parser).to receive(:call) # rubocop:disable RSpec/MessageSpies, RSpec/StubbedMock
+        .with(body, options[:parser_options] || {})
         .and_return(result)
 
       response = process(body)
