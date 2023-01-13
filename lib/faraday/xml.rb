@@ -7,7 +7,7 @@ module Faraday
   # The Faraday::XML middleware main module
   module XML
     # Load middleware with
-    #   conn.response Faraday::XML::Response
+    #   conn.use Faraday::XML::Response
     #   or
     #   conn.response :xml
     Faraday::Response.register_middleware(xml: Faraday::XML::Response)

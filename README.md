@@ -29,9 +29,18 @@ gem install faraday-xml
 ## Usage
 
 ```ruby
+require 'faraday'
 require 'faraday/xml'
 
-# TODO
+conn = Faraday.new do |builder|
+  builder.headers.update(
+    "Accept" => "application/xml",
+    "Content-Type" => "application/xml;charset=UTF-8",
+  )
+
+  # or builder.use Faraday::XML::Response
+  builder.response :xml # decode response bodies from XML
+end
 ```
 
 ## Development
