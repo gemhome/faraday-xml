@@ -37,7 +37,8 @@ conn = Faraday.new do |builder|
     "Accept" => "application/xml",
     "Content-Type" => "application/xml;charset=UTF-8",
   )
-
+  # or builder.use Faraday::XML::Request
+  builder.request :xml # encode Hash as XML
   # or builder.use Faraday::XML::Response
   builder.response :xml # decode response bodies from XML
 end
