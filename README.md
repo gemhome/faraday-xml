@@ -44,6 +44,21 @@ conn = Faraday.new do |builder|
 end
 ```
 
+There is also basic support for first class XML encoding/parsing
+
+```ruby
+require 'faraday'
+require 'faraday/xml'
+hash = { 'user' => { 'name' => 'Erik Michaels-Ober', 'screen_name' => 'sferik' } }
+xml = '<user><name>Erik Michaels-Ober</name><screen_name>sferik</screen_name></user>'
+
+encoder = Faraday::XML::Encoder.build!(indent: 0)
+encoder.encode(hash) == xml
+
+parser = Faraday::XML::Parser.build!
+parser.parse(xml) == hash
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
