@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'parser'
+
 module Faraday
   module XML
     # Parse response bodies as XML
@@ -17,12 +19,7 @@ module Faraday
       end
 
       def parser
-        @parser ||= nil
-        if @parser.nil?
-          @parser = set_parser
-          @parser && test_parser
-        end
-        @parser or raise 'Missing dependencies ActiveSupport::XmlMini or MultiXml'
+        @parser ||= Parser.build!
       end
 
       private
@@ -37,34 +34,7 @@ module Faraday
       def parse(body)
         return nil if body.strip.empty?
 
-        parser.call(body, @parser_options || {})
-      end
-
-      def test_parser
-        parse('<success>true</success>')
-      end
-
-      def set_parser # rubocop:disable Metrics/MethodLength
-        @parser ||=
-          begin
-            require 'multi_xml'
-            lambda do |xml, options|
-              ::MultiXml.parse(xml, options)
-            end
-          rescue LoadError # rubocop:disable Lint/SuppressedException
-          end
-        @parser ||= # rubocop:disable Naming/MemoizedInstanceVariableName
-          begin
-            require 'active_support'
-            require 'active_support/xml_mini'
-            require 'active_support/core_ext/hash/conversions'
-            require 'active_support/core_ext/array/conversions'
-            lambda do |xml, options|
-              disallowed_types = options[:disallowed_types]
-              Hash.from_xml(xml, disallowed_types)
-            end
-          rescue LoadError # rubocop:disable Lint/SuppressedException
-          end
+        parser.parse(body, @parser_options || {})
       end
 
       def parse_response?(env)
