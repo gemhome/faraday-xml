@@ -30,8 +30,6 @@ module Faraday
       end
       alias encoder! encoder
 
-      private
-
       def test_encoder
         encode({ success: true })
       end
