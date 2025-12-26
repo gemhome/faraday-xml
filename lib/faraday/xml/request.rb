@@ -13,7 +13,7 @@ module Faraday
     # Doesn't try to encode bodies that already are in string form.
     class Request < Middleware
       MIME_TYPE = 'application/xml'
-      MIME_TYPE_REGEX = %r{^application/(vnd\..+\+)?xml$}.freeze
+      MIME_TYPE_REGEX = %r{^application/(vnd\..+\+)?xml$}
 
       def initialize(app = nil, options = {})
         super(app)
