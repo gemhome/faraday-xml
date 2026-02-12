@@ -1,5 +1,7 @@
 require:
   - rubocop-packaging
+
+plugins:
   - rubocop-performance
   - rubocop-rspec
 
@@ -11,7 +13,7 @@ inherit_mode:
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.2
   SuggestExtensions: false
   NewCops: enable
 

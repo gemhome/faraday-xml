@@ -11,5 +11,14 @@ gemspec
 install_if -> { ENV.fetch('FARADAY_VERSION', nil) } do
   gem 'faraday', ENV.fetch('FARADAY_VERSION', nil)
 end
+
 gem 'activesupport'
 gem 'builder'
+gem 'rexml' # Required for Ruby 3.4+ (no longer in stdlib)
+
+group :development do
+  gem 'rubocop', '~> 1.69'
+  gem 'rubocop-packaging', '~> 0.5.2'
+  gem 'rubocop-performance', '~> 1.23'
+  gem 'rubocop-rspec', '~> 3.3'
+end
