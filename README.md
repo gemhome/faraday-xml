@@ -1,6 +1,6 @@
 # Faraday XML
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/gemhome/faraday-xml/ci)](https://github.com/gemhome/faraday-xml/actions?query=branch%3Amain)
+[![CI](https://github.com/gemhome/faraday-xml/actions/workflows/ci.yaml/badge.svg)](https://github.com/gemhome/faraday-xml/actions/workflows/ci.yaml)
 [![Gem](https://img.shields.io/gem/v/faraday-xml.svg?style=flat-square)](https://rubygems.org/gems/faraday-xml)
 [![License](https://img.shields.io/github/license/gemhome/faraday-xml.svg?style=flat-square)](LICENSE.md)
 
