@@ -1,8 +1,9 @@
 # Changelog
 
-## [0.3.0](https://github.com/gemhome/faraday-xml/compare/v0.2.1...v0.3.0) (2025-12-26)
+## [Unreleased](https://github.com/gemhome/faraday-xml/compare/v0.2.2...main)
 
-- **BREAKING:** Drop support for Ruby < 3.2 (EOL versions)
+## [0.2.2](https://github.com/gemhome/faraday-xml/compare/v0.2.1...v0.2.2) (2026-02-12)
+
 - feat: Add support for Ruby 4.0
 - chore: Update development dependencies to latest versions
 - chore: Update CI matrix to test Ruby 3.2, 3.3, 3.4, and 4.0
